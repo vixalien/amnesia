@@ -10,9 +10,12 @@
 	import CloseIcon from '$lib/assets/icon-close.svg';
 
 	import { imageBackground } from '$lib/utilities/image-background.js';
+	import { keyboardNavigate } from '$lib/actions/keyboard-navigate.js';
 
 	const { data } = $props();
 </script>
+
+<svelte:window use:keyboardNavigate={{ next: data.next?._id, previous: data.previous?._id }} />
 
 <article
 	class="relative flex h-screen w-screen items-center justify-center"

@@ -1,5 +1,4 @@
-import { goto } from '$app/navigation';
-import { navigationHistory } from '$lib/stores/navigation';
+import { goBackTo } from '$lib/stores/navigation';
 import type { Action } from 'svelte/action';
 
 export const smartNavigate: Action<HTMLAnchorElement> = (node) => {
@@ -16,15 +15,7 @@ export const smartNavigate: Action<HTMLAnchorElement> = (node) => {
 
 		event.preventDefault();
 
-		// Check if we can go back to this path
-		const stepsBack = navigationHistory.stepsBackTo(href);
-
-		if (stepsBack !== null && window.history.length > stepsBack) {
-			// Go back the specific number of steps
-			window.history.go(-stepsBack);
-		} else {
-			goto(href);
-		}
+		goBackTo(href);
 	}
 
 	node.addEventListener('click', handleClick);

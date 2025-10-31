@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
+import { goto } from '$app/navigation';
 
 function createNavigationStore() {
 	const { subscribe, update } = writable<string[]>([]);
@@ -28,3 +29,15 @@ function createNavigationStore() {
 }
 
 export const navigationHistory = createNavigationStore();
+
+export function goBackTo(href: string) {
+	// Check if we can go back to this path
+	const stepsBack = navigationHistory.stepsBackTo(href);
+
+	if (stepsBack !== null && window.history.length > stepsBack) {
+		// Go back the specific number of steps
+		window.history.go(-stepsBack);
+	} else {
+		goto(href);
+	}
+}
