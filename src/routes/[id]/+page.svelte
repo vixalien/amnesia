@@ -29,7 +29,11 @@
 			class="absolute top-0 bottom-0 left-0 z-20 flex w-20 cursor-pointer items-center justify-center"
 			href={`/${data.previous._id}`}
 		>
-			<IconButton icon={LeftIcon} label="Previous" />
+			<IconButton
+				icon={LeftIcon}
+				label="Previous"
+				viewTransitionName={`image-${data.previous._id}`}
+			/>
 		</a>
 	{/if}
 
@@ -38,18 +42,24 @@
 			class="absolute top-0 right-0 bottom-0 z-20 flex w-20 cursor-pointer items-center justify-center"
 			href={`/${data.next._id}`}
 		>
-			<IconButton icon={RightIcon} label="Next" />
+			<IconButton icon={RightIcon} label="Next" viewTransitionName={`image-${data.next._id}`} />
 		</a>
 	{/if}
 
 	<div class="absolute top-0 right-0 z-20 me-4 mt-4 flex flex-wrap items-center gap-4">
 		{#if data.media.description}
-			<span class="rounded-2xl bg-[#c8c8c840] px-3 py-1 pt-1.5 text-black backdrop-blur-lg">
+			<span
+				class="rounded-2xl bg-[#c8c8c840] px-3 py-1 pt-1.5 text-black backdrop-blur-lg"
+				style:view-transition-name="image-description"
+			>
 				{data.media.description}
 			</span>
 		{/if}
 
-		<span class="rounded-2xl bg-[#c8c8c840] px-3 py-1 pt-1.5 text-black backdrop-blur-lg">
+		<span
+			class="rounded-2xl bg-[#c8c8c840] px-3 py-1 pt-1.5 text-black tabular-nums backdrop-blur-lg"
+			style:view-transition-name="image-capture-date"
+		>
 			<time datetime={new Date(data.media.capture_date_ms).toISOString()}
 				>{new Date(data.media.capture_date_ms).toLocaleDateString()}</time
 			>
@@ -57,7 +67,7 @@
 
 		<ShareButton />
 
-		<a href="/" use:smartNavigate>
+		<a href="/" use:smartNavigate style:view-transition-name="image-close">
 			<IconButton icon={CloseIcon} label="Close" />
 		</a>
 	</div>

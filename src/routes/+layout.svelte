@@ -2,12 +2,23 @@
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
 
-	import { afterNavigate } from '$app/navigation';
+	import { afterNavigate, onNavigate } from '$app/navigation';
 	import { navigationHistory } from '$lib/stores/navigation';
 
 	import AtkinsonRegular from '$lib/assets/atkinson-regular.woff?url';
 	import AtkinsonBold from '$lib/assets/atkinson-bold.woff?url';
 	import GinestraBlack from '$lib/assets/ginestra-black.otf?url';
+
+	onNavigate((navigation) => {
+		if (!document.startViewTransition) return;
+
+		return new Promise((resolve) => {
+			document.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+			});
+		});
+	});
 
 	afterNavigate((navigation) => {
 		if (navigation.to?.url.pathname) {

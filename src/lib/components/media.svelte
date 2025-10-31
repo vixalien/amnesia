@@ -21,6 +21,7 @@
 	width={image.width}
 	height={image.height}
 	class="size-full object-contain"
+	style:view-transition-name={`image-${image._id}`}
 	style:background-color={imageBackground(image)}
 	srcset={imageSrcset(image)}
 	sizes={inGrid ? imageSizes(288, 1280) : '100vw'}

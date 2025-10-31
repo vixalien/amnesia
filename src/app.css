@@ -80,3 +80,11 @@
 		@apply font-block text-5xl font-normal xl:text-7xl;
 	}
 }
+
+@media (prefers-reduced-motion) {
+	::view-transition-group(*),
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		animation: none !important;
+	}
+}
