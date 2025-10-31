@@ -1,3 +1,4 @@
+import { AMNESIA_API_KEY } from '$env/static/private';
 import { setToken } from '$lib/api';
 
-setToken('7356455548d0a1d886db010883388d08be84d0c9');
+setToken(AMNESIA_API_KEY);

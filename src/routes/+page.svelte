@@ -20,6 +20,6 @@
 		</p>
 	</div>
 	{#each data.media as media}
-		<MediaLink image={media.image} inGrid />
+		<MediaLink image={media} inGrid />
 	{/each}
 </Masonry>

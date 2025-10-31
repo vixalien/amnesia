@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { ImageMedium } from '$lib/api/vsco/types';
 
-	import { masonryBreakpoints } from '$lib/constants/masonry';
 	import { imageBackground } from '$lib/utilities/image-background';
 	import { imageLink, imageSrcset } from '$lib/utilities/image-link';
 	import { imageSizes } from '$lib/utilities/image-sizes';
