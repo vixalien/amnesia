@@ -17,6 +17,10 @@
 
 <svelte:window use:keyboardNavigate={{ next: data.next?._id, previous: data.previous?._id }} />
 
+<svelte:head>
+	<title>{data.media.description ? `${data.media.description} - ` : ``}vixalien's memories</title>
+</svelte:head>
+
 <article
 	class="relative flex h-screen w-screen items-center justify-center"
 	style:background-color={imageBackground(data.media)}

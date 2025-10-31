@@ -10,6 +10,9 @@
 	<Media {...props} />
 	<div class="absolute inset-0 bg-transparent transition-colors group-hover:bg-[#00000040]"></div>
 	<div class="absolute top-0 right-0 mt-2 mr-2 hidden group-hover:block">
-		<ShareButton />
+		<ShareButton
+			id={props.image._id}
+			title={`${props.image.description ? `${props.image.description} - ` : ``}vixalien's memories`}
+		/>
 	</div>
 </a>

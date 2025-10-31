@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { Toaster } from 'svelte-sonner';
+
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
-
 	import { afterNavigate, onNavigate } from '$app/navigation';
 	import { navigationHistory } from '$lib/stores/navigation';
 
@@ -38,3 +39,5 @@
 </svelte:head>
 
 {@render children()}
+
+<Toaster />

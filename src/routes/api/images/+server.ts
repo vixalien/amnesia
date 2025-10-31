@@ -19,5 +19,5 @@ export const GET: RequestHandler = async () => {
 		cursor = data.next_cursor;
 	} while (cursor);
 
-	return json(media);
+	return json(media.toSorted((a, b) => b.capture_date_ms - a.capture_date_ms));
 };
