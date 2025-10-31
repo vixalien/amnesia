@@ -2,9 +2,18 @@
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
 
+	import { afterNavigate } from '$app/navigation';
+	import { navigationHistory } from '$lib/stores/navigation';
+
 	import AtkinsonRegular from '$lib/assets/atkinson-regular.woff?url';
 	import AtkinsonBold from '$lib/assets/atkinson-bold.woff?url';
 	import GinestraBlack from '$lib/assets/ginestra-black.otf?url';
+
+	afterNavigate((navigation) => {
+		if (navigation.to?.url.pathname) {
+			navigationHistory.push(navigation.to.url.pathname);
+		}
+	});
 
 	let { children } = $props();
 </script>

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { smartNavigate } from '$lib/actions/smart-navigate.js';
+
 	import IconButton from '$lib/components/icon-button.svelte';
 	import Media from '$lib/components/media.svelte';
 	import ShareButton from '$lib/components/share-button.svelte';
@@ -19,7 +21,8 @@
 	<div class={'h-full w-auto'}>
 		<Media image={data.media} />
 	</div>
-	<a class="absolute inset-0 z-10 cursor-zoom-out" aria-label="Close" href="/"></a>
+	<a class="absolute inset-0 z-10 cursor-zoom-out" aria-label="Close" href="/" use:smartNavigate
+	></a>
 
 	{#if data.previous}
 		<a
@@ -54,7 +57,7 @@
 
 		<ShareButton />
 
-		<a href="/">
+		<a href="/" use:smartNavigate>
 			<IconButton icon={CloseIcon} label="Close" />
 		</a>
 	</div>
