@@ -30,5 +30,6 @@
 	"dependencies": {
 		"@react2svelte/swipeable": "^0.1.4",
 		"svelte-sonner": "^1.0.5"
-	}
+	},
+	"packageManager": "pnpm@10.17.1"
 }
