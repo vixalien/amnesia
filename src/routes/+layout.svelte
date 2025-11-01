@@ -2,7 +2,7 @@
 	import { Toaster } from 'svelte-sonner';
 
 	import '../app.css';
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '$lib/assets/favicon.png';
 	import { afterNavigate, onNavigate } from '$app/navigation';
 	import { navigationHistory } from '$lib/stores/navigation';
 
