@@ -15,6 +15,8 @@ export const keyboardNavigate: Action<Window, KeyboardNavigateParams> = (_, para
 			return;
 		}
 
+		if (event.ctrlKey || event.altKey || event.metaKey) return;
+
 		switch (event.key) {
 			case 'Escape':
 				event.preventDefault();

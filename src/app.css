@@ -88,3 +88,7 @@
 		animation: none !important;
 	}
 }
+
+::view-transition-group(*) {
+	animation-duration: 0.4s;
+}

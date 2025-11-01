@@ -1,4 +1,10 @@
 <script lang="ts">
+	import { swipeable } from '@react2svelte/swipeable';
+	import type { SwipeEventData } from '@react2svelte/swipeable';
+
+	import { goto } from '$app/navigation';
+
+	import { keyboardNavigate } from '$lib/actions/keyboard-navigate.js';
 	import { smartNavigate } from '$lib/actions/smart-navigate.js';
 
 	import IconButton from '$lib/components/icon-button.svelte';
@@ -9,10 +15,49 @@
 	import RightIcon from '$lib/assets/icon-right.svg';
 	import CloseIcon from '$lib/assets/icon-close.svg';
 
+	import { goBackTo } from '$lib/stores/navigation.js';
+
 	import { imageBackground } from '$lib/utilities/image-background.js';
-	import { keyboardNavigate } from '$lib/actions/keyboard-navigate.js';
 
 	const { data } = $props();
+
+	let translateX = $state(0);
+	let translateY = $state(0);
+	let scale = $state(1);
+
+	function handleSwiping(e: CustomEvent<SwipeEventData>) {
+		translateX = e.detail.deltaX;
+		translateY = e.detail.deltaY;
+
+		// Calculate distance and scale
+		const distance = Math.sqrt(e.detail.absX ** 2 + e.detail.absY ** 2);
+		const maxDistance = 30; // Max distance before minimum scale
+		const maxScaleReduction = 0.1; // Scale down to 0.7 at max distance
+
+		scale = Math.max(0.7, 1 - (distance / maxDistance) * maxScaleReduction);
+	}
+
+	function handleSwipeEnd() {
+		translateX = 0;
+		translateY = 0;
+		scale = 1;
+	}
+
+	function goNext() {
+		if (data.next?._id) {
+			goto(`/${data.next._id}`);
+		}
+	}
+
+	function goPrevious() {
+		if (data.previous?._id) {
+			goto(`/${data.previous._id}`);
+		}
+	}
+
+	function goHome() {
+		goBackTo('/');
+	}
 </script>
 
 <svelte:window use:keyboardNavigate={{ next: data.next?._id, previous: data.previous?._id }} />
@@ -25,11 +70,32 @@
 	class="relative flex h-screen w-screen items-center justify-center"
 	style:background-color={imageBackground(data.media)}
 >
-	<div class={'h-full w-auto'}>
-		<Media image={data.media} />
+	<div class={'flex size-full items-center justify-center'} style:view-transition-name="skip-1">
+		<Media image={data.media} {translateX} {translateY} {scale} />
 	</div>
-	<a class="absolute inset-0 z-10 cursor-zoom-out" aria-label="Close" href="/" use:smartNavigate
-	></a>
+	<a
+		class="absolute inset-0 z-10 cursor-zoom-out"
+		aria-label="Close"
+		href="/"
+		style:view-transition-name="no"
+		use:smartNavigate
+		use:swipeable
+		on:swiping={handleSwiping}
+		on:swiped={handleSwipeEnd}
+		on:swipeddown={(e) => {
+			handleSwipeEnd();
+			goHome();
+		}}
+		on:swipedright={(e) => {
+			handleSwipeEnd();
+			goPrevious();
+		}}
+		on:swipedleft={(e) => {
+			handleSwipeEnd();
+			goNext();
+		}}
+	>
+	</a>
 
 	{#if data.previous}
 		<a

@@ -28,6 +28,7 @@
 		"vite": "^7.1.10"
 	},
 	"dependencies": {
+		"@react2svelte/swipeable": "^0.1.4",
 		"svelte-sonner": "^1.0.5"
 	}
 }
