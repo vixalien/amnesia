@@ -69,13 +69,16 @@
 	<title>{data.media.description ? `${data.media.description} - ` : ``}vixalien's memories</title>
 </svelte:head>
 
-<article class="relative" style:background-color={imageBackground(data.media)}>
+<article
+	class="relative flex h-screen w-screen items-center justify-center"
+	style:background-color={imageBackground(data.media)}
+>
 	<img
 		loading="lazy"
 		alt={data.media.description}
 		width={data.media.width}
 		height={data.media.height}
-		class="m-auto h-auto max-h-screen w-auto max-w-screen"
+		class="size-auto max-h-full max-w-full"
 		style:background-color="gray"
 		style:transition={isDone ? 'transform 0.4s ease-out' : 'transform 0.1s ease-out'}
 		style:transform="translate({translateX}px, {translateY}px) scale({scale})"
