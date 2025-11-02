@@ -17,7 +17,7 @@ export const GET: RequestHandler = async () => {
 		media.push(...data.media.map((item) => item.image));
 
 		cursor = data.next_cursor;
-	} while (cursor);
+	} while (false);
 
 	return json(media.toSorted((a, b) => b.capture_date_ms - a.capture_date_ms));
 };

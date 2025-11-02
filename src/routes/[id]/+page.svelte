@@ -8,7 +8,6 @@
 	import { smartNavigate } from '$lib/actions/smart-navigate.js';
 
 	import IconButton from '$lib/components/icon-button.svelte';
-	import Media from '$lib/components/media.svelte';
 	import ShareButton from '$lib/components/share-button.svelte';
 
 	import LeftIcon from '$lib/assets/icon-left.svg';
@@ -18,16 +17,19 @@
 	import { goBackTo } from '$lib/stores/navigation.js';
 
 	import { imageBackground } from '$lib/utilities/image-background.js';
+	import { imageLink, imageSrcset } from '$lib/utilities/image-link.js';
 
 	const { data } = $props();
 
 	let translateX = $state(0);
 	let translateY = $state(0);
 	let scale = $state(1);
+	let isDone = $state(false);
 
 	function handleSwiping(e: CustomEvent<SwipeEventData>) {
 		translateX = e.detail.deltaX;
 		translateY = e.detail.deltaY;
+		isDone = false;
 
 		// Calculate distance and scale
 		const distance = Math.sqrt(e.detail.absX ** 2 + e.detail.absY ** 2);
@@ -38,6 +40,7 @@
 	}
 
 	function handleSwipeEnd() {
+		isDone = true;
 		translateX = 0;
 		translateY = 0;
 		scale = 1;
@@ -66,13 +69,22 @@
 	<title>{data.media.description ? `${data.media.description} - ` : ``}vixalien's memories</title>
 </svelte:head>
 
-<article
-	class="relative flex h-screen w-screen items-center justify-center"
-	style:background-color={imageBackground(data.media)}
->
-	<div class={'flex size-full items-center justify-center'} style:view-transition-name="skip-1">
-		<Media image={data.media} {translateX} {translateY} {scale} />
-	</div>
+<article class="relative" style:background-color={imageBackground(data.media)}>
+	<img
+		loading="lazy"
+		alt={data.media.description}
+		width={data.media.width}
+		height={data.media.height}
+		class="m-auto h-auto max-h-screen w-auto max-w-screen"
+		style:background-color="gray"
+		style:transition={isDone ? 'transform 0.4s ease-out' : 'transform 0.1s ease-out'}
+		style:transform="translate({translateX}px, {translateY}px) scale({scale})"
+		style:view-transition-name={`image-${data.media._id}`}
+		srcset={imageSrcset(data.media)}
+		src={imageLink(data.media, data.media.width)}
+		sizes="200vw"
+		decoding="sync"
+	/>
 	<a
 		class="absolute inset-0 z-10 cursor-zoom-out"
 		aria-label="Close"

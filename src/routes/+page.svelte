@@ -5,8 +5,8 @@
 	import MediaLink from '$lib/components/media-link.svelte';
 </script>
 
-<Masonry items={data.media} class="mx-auto max-w-7xl">
-	<div class="p-4">
+<Masonry items={data.media} class="mx-auto max-w-7xl max-[34em]:grid-cols-2!">
+	<div class="p-4 max-[34em]:-col-start-1 max-[34em]:col-end-1">
 		<nav class="mb-5">
 			<a href="https://www.vixalien.com">&larr; vixalien's site</a>
 		</nav>
@@ -20,6 +20,6 @@
 		</p>
 	</div>
 	{#each data.media as media}
-		<MediaLink image={media} inGrid />
+		<MediaLink image={media} />
 	{/each}
 </Masonry>
