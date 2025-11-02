@@ -24,10 +24,12 @@
 	let translateX = $state(0);
 	let translateY = $state(0);
 	let scale = $state(1);
+	let isDone = $state(false);
 
 	function handleSwiping(e: CustomEvent<SwipeEventData>) {
 		translateX = e.detail.deltaX;
 		translateY = e.detail.deltaY;
+		isDone = false;
 
 		// Calculate distance and scale
 		const distance = Math.sqrt(e.detail.absX ** 2 + e.detail.absY ** 2);
@@ -41,6 +43,7 @@
 		translateX = 0;
 		translateY = 0;
 		scale = 1;
+		isDone = true;
 	}
 
 	function goNext() {
@@ -70,8 +73,11 @@
 	class="relative flex h-screen w-screen items-center justify-center"
 	style:background-color={imageBackground(data.media)}
 >
-	<div class={'flex size-full items-center justify-center'} style:view-transition-name="skip-1">
-		<Media image={data.media} {translateX} {translateY} {scale} />
+	<div
+		class={'flex size-full items-center justify-center overflow-clip'}
+		style:view-transition-name="skip-1"
+	>
+		<Media wrapper image={data.media} {translateX} {translateY} {scale} {isDone} />
 	</div>
 	<a
 		class="absolute inset-0 z-10 cursor-zoom-out"

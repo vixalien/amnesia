@@ -22,7 +22,7 @@
 	let {
 		stretchFirst = false,
 		gridGap = '0.5em',
-		colWidth = 'minmax(Min(18em, 100%), 1fr)',
+		colWidth = 'minmax(Min(16em, 100%), 1fr)',
 		items = [],
 		reset = false,
 		children,
@@ -52,7 +52,14 @@
 
 				if (grid.ncol > 1) {
 					grid.items.slice(ncol).forEach((c, i) => {
-						const prevBottom = grid.items[i].getBoundingClientRect().bottom;
+						// i is the index within the sliced array
+						// The actual index in grid.items is (i + ncol)
+						const currentIndex = i + ncol;
+						const columnIndex = currentIndex % ncol;
+
+						// Find the previous item in the same column
+						const prevIndex = currentIndex - ncol;
+						const prevBottom = grid.items[prevIndex].getBoundingClientRect().bottom;
 						const currTop = c.getBoundingClientRect().top;
 						c.style.marginTop = `${prevBottom + grid.gap - currTop}px`;
 					});
@@ -124,9 +131,8 @@
 		justify-content: center;
 		grid-gap: var(--grid-gap);
 		padding: var(--grid-gap);
-	}
-	:global(.__grid--masonry > *) {
-		align-self: start;
+		align-items: start;
+		grid-auto-rows: max-content;
 	}
 	:global(.__grid--masonry.__stretch-first > *:first-child) {
 		grid-column: 1/ -1;
