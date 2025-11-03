@@ -1,4 +1,3 @@
-import type { SingleImageData } from '$lib/types';
 import type { PageLoad } from './$types';
 
 import { getImages, hasImages, storeImages } from '$lib/utilities/storage';
