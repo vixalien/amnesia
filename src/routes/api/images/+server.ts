@@ -22,7 +22,7 @@ export const GET: RequestHandler = async () => {
 			media.push(...data.media.map((item) => item.image));
 
 			cursor = data.next_cursor;
-		} while (false);
+		} while (cursor);
 
 		const sortedMedia = media.toSorted((a, b) => b.capture_date_ms - a.capture_date_ms);
 
