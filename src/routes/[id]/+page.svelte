@@ -2,7 +2,7 @@
 	import { swipeable } from '@react2svelte/swipeable';
 	import type { SwipeEventData } from '@react2svelte/swipeable';
 
-	import { goto, preloadData } from '$app/navigation';
+	import { goto } from '$app/navigation';
 
 	import { keyboardNavigate } from '$lib/actions/keyboard-navigate.js';
 	import { smartNavigate } from '$lib/actions/smart-navigate.js';
@@ -63,13 +63,23 @@
 		goBackTo('/');
 	}
 
+	function preloadImage(src: string) {
+		const link = document.createElement('link');
+		link.rel = 'preload';
+		link.as = 'image';
+		link.crossOrigin = 'anonymous';
+		link.href = src;
+		link.referrerPolicy = 'no-referrer';
+		document.head.appendChild(link);
+	}
+
 	onMount(() => {
 		if (data.next) {
-			preloadData(imageLink(data.next, getImageSize(screen.width)));
+			preloadImage(imageLink(data.next, getImageSize(screen.width)));
 		}
 
 		if (data.previous) {
-			preloadData(imageLink(data.previous, getImageSize(screen.width)));
+			preloadImage(imageLink(data.previous, getImageSize(screen.width)));
 		}
 	});
 </script>
