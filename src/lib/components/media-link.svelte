@@ -25,6 +25,7 @@
 		sizes={imageSizes(288, 1280)}
 		decoding="async"
 		style:view-transition-name={`image-${image._id}`}
+		referrerpolicy="no-referrer"
 	/>
 	<div
 		class="pointer-events-none absolute inset-0 bg-transparent transition-colors group-hover:bg-[#00000040]"

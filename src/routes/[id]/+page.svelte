@@ -67,7 +67,6 @@
 		const link = document.createElement('link');
 		link.rel = 'preload';
 		link.as = 'image';
-		link.crossOrigin = 'anonymous';
 		link.href = src;
 		link.referrerPolicy = 'no-referrer';
 		document.head.appendChild(link);
@@ -107,7 +106,7 @@
 		srcset={imageSrcset(data.media)}
 		src={imageLink(data.media, data.media.width)}
 		sizes="200vw"
-		decoding="sync"
+		referrerpolicy="no-referrer"
 	/>
 	<a
 		class="absolute inset-0 z-10 cursor-zoom-out"
