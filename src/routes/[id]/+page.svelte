@@ -104,7 +104,7 @@
 		style:view-transition-name={`image-${data.media._id}`}
 		srcset={imageSrcset(data.media)}
 		src={imageLink(data.media, data.media.width)}
-		sizes="200vw"
+		sizes="100vw"
 		referrerpolicy="no-referrer"
 	/>
 	<a
