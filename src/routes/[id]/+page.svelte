@@ -18,7 +18,6 @@
 
 	import { imageBackground } from '$lib/utilities/image-background.js';
 	import { getImageSize, imageLink, imageSrcset } from '$lib/utilities/image-link.js';
-	import { onMount } from 'svelte';
 
 	const { data } = $props();
 
@@ -72,7 +71,7 @@
 		document.head.appendChild(link);
 	}
 
-	onMount(() => {
+	$effect(() => {
 		if (data.next) {
 			preloadImage(imageLink(data.next, getImageSize(screen.width)));
 		}
