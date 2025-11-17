@@ -3,7 +3,15 @@
 
 	import Masonry from '$lib/components/masonry.svelte';
 	import MediaLink from '$lib/components/media-link.svelte';
+
+	import AtkinsonRegular from '$lib/assets/atkinson-regular.woff?url';
+	import GinestraBlack from '$lib/assets/ginestra-black.otf?url';
 </script>
+
+<svelte:head>
+	<link rel="preload" href={AtkinsonRegular} as="font" crossorigin="anonymous" />
+	<link rel="preload" href={GinestraBlack} as="font" crossorigin="anonymous" />
+</svelte:head>
 
 <Masonry items={data.media} class="mx-auto max-w-7xl max-[34em]:grid-cols-2!">
 	<div class="p-4 max-[34em]:-col-start-1 max-[34em]:col-end-1">

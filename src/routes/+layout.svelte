@@ -6,9 +6,6 @@
 	import { afterNavigate, onNavigate } from '$app/navigation';
 	import { navigationHistory } from '$lib/stores/navigation';
 
-	import AtkinsonRegular from '$lib/assets/atkinson-regular.woff?url';
-	import GinestraBlack from '$lib/assets/ginestra-black.otf?url';
-
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
 
@@ -32,14 +29,6 @@
 <svelte:head>
 	<link rel="icon" href={favicon} />
 	<title>vixalien's memories</title>
-	<link rel="preload" href={AtkinsonRegular} as="font" type="font/woff" crossorigin="anonymous" />
-	<link
-		rel="preload"
-		href={GinestraBlack}
-		as="font"
-		type="application/x-font-opentype"
-		crossorigin="anonymous"
-	/>
 </svelte:head>
 
 {@render children()}
