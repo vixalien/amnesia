@@ -2,7 +2,8 @@ import { openKv as nodeOpenKv } from '@deno/kv';
 
 let openKv: typeof nodeOpenKv;
 
-if ('Deno' in globalThis) {
+/// @ts-expect-error these are deno types
+if ('Deno' in globalThis && 'openKv' in Deno) {
 	/// @ts-expect-error these are deno types
 	openKv = Deno.openKv;
 } else {
