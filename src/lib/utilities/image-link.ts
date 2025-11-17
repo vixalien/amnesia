@@ -22,3 +22,7 @@ export function imageSrcset(image: ImageMedium['image']) {
 		.map((width) => `${imageLink(image, width)} ${width}w`)
 		.join(', ');
 }
+
+export function getImageSize(viewportSize: number) {
+	return VIEWPORTS.find((size) => size >= viewportSize) || VIEWPORTS[VIEWPORTS.length - 1];
+}

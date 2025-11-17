@@ -2,7 +2,7 @@
 	import { swipeable } from '@react2svelte/swipeable';
 	import type { SwipeEventData } from '@react2svelte/swipeable';
 
-	import { goto } from '$app/navigation';
+	import { goto, preloadData } from '$app/navigation';
 
 	import { keyboardNavigate } from '$lib/actions/keyboard-navigate.js';
 	import { smartNavigate } from '$lib/actions/smart-navigate.js';
@@ -17,7 +17,8 @@
 	import { goBackTo } from '$lib/stores/navigation.js';
 
 	import { imageBackground } from '$lib/utilities/image-background.js';
-	import { imageLink, imageSrcset } from '$lib/utilities/image-link.js';
+	import { getImageSize, imageLink, imageSrcset } from '$lib/utilities/image-link.js';
+	import { onMount } from 'svelte';
 
 	const { data } = $props();
 
@@ -61,6 +62,16 @@
 	function goHome() {
 		goBackTo('/');
 	}
+
+	onMount(() => {
+		if (data.next) {
+			preloadData(imageLink(data.next, getImageSize(screen.width)));
+		}
+
+		if (data.previous) {
+			preloadData(imageLink(data.previous, getImageSize(screen.width)));
+		}
+	});
 </script>
 
 <svelte:window use:keyboardNavigate={{ next: data.next?._id, previous: data.previous?._id }} />
