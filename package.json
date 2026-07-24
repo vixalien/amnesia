@@ -27,7 +27,8 @@
 		"svelte-check": "^4.7.3",
 		"tailwindcss": "^4.3.3",
 		"typescript": "^7.0.2",
-		"vite": "^8.1.5"
+		"vite": "^8.1.5",
+		"wrangler": "^4.113.0"
 	},
 	"dependencies": {
 		"@deno/kv": "^0.14.0",
