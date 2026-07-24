@@ -1,6 +1,8 @@
 allowBuilds:
   esbuild: true
   node-libcurl: true
+  sharp: true
+  workerd: true
 onlyBuiltDependencies:
   - esbuild
   - '@tailwindcss/oxide'
