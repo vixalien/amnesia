@@ -1,3 +1,4 @@
+import https from 'https';
 import { APIError } from './error';
 import { __settings } from './settings';
 
@@ -17,18 +18,38 @@ export async function request<T = unknown>(endpoint: string, meta: RequestMeta =
 		url.search = new URLSearchParams(meta.query).toString();
 	}
 
-	const response = await fetch(url, {
-		method: 'GET',
-		headers: {
-			authorization: `Bearer ${__settings.token}`,
-			Te: 'trailers',
-			'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:148.0) Gecko/20100101 Firefox/148.0'
-		}
+	return new Promise<T>((resolve, reject) => {
+		const req = https.request(
+			url,
+			{
+				method: meta.method ?? 'GET',
+				headers: {
+					'User-Agent': 'my-app/1.0',
+					Authorization: `Bearer ${__settings.token}`,
+					TE: 'trailers'
+				}
+			},
+			(res) => {
+				const chunks: Buffer[] = [];
+				res.on('data', (chunk: Buffer) => chunks.push(chunk));
+				res.on('end', () => {
+					const body = Buffer.concat(chunks).toString();
+
+					if (!res.statusCode || res.statusCode >= 400) {
+						reject(new APIError(`Request failed with status ${res.statusCode}`));
+						return;
+					}
+
+					try {
+						resolve(JSON.parse(body) as T);
+					} catch {
+						reject(new APIError(`Failed to parse response as JSON`));
+					}
+				});
+			}
+		);
+
+		req.on('error', reject);
+		req.end();
 	});
-
-	if (!response.ok) {
-		throw new APIError(`Request failed with status ${response.status}`);
-	}
-
-	return response.json() as T;
 }
