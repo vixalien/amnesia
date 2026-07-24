@@ -11,7 +11,6 @@ AMNESIA_API_KEY=your_api_key_here
 AMNESIA_SITE_ID=your_site_id_here
 ```
 
-
 ## Usage
 
 ```

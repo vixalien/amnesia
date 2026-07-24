@@ -20,7 +20,9 @@
 		</nav>
 		<h1>vixalien's memories</h1>
 		<p>
-			Hello! I'm Angelo Verlain, but you can call me vixalien. I am a software engineer but I also take a few pictures every once and then as a hobby. You can find a small selection of such pictures below.
+			Hello! I'm Angelo Verlain, but you can call me vixalien. I am a software engineer but I also
+			take a few pictures every once and then as a hobby. You can find a small selection of such
+			pictures below.
 		</p>
 		<p>
 			&copy; {new Date().getFullYear()} - All rights reserved.

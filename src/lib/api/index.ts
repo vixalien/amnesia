@@ -1,1 +1,1 @@
-export * from "./vsco";
+export * from './vsco';
