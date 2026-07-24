@@ -1,4 +1,4 @@
-import https from 'https';
+import https from 'node:https';
 import { APIError } from './error';
 import { __settings } from './settings';
 
